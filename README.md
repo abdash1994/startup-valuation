@@ -2,20 +2,27 @@
 
 <div align="center">
 
-![Startup Value Navigator](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase)
+![License](https://img.shields.io/badge/License-BSL_1.1-orange?style=for-the-badge)
 
 **A professional-grade startup valuation platform using VC-backed methodologies**
 
-[🌐 Live Demo](https://your-app-url.vercel.app) • [📖 Documentation](./docs/Startup_Value_Navigator_Walkthrough.html) • [🐛 Report Bug](../../issues)
+### [🌐 Try the Live App](https://abdash1994.github.io/startup-valuation/)
+
+[📖 Product Walkthrough](https://abdash1994.github.io/startup-valuation/walkthrough-full.html) • [📐 Methodology](./docs/VALUATION_METHODOLOGY.md) • [🐛 Report Bug](https://github.com/abdash1994/startup-valuation/issues)
 
 </div>
 
 ---
 
-## ✨ Features
+## 🎯 What is Startup Value Navigator?
+
+Startup Value Navigator is a **free, browser-based valuation tool** that helps founders, investors, and advisors estimate startup enterprise value using industry-standard methodologies. Get instant valuations across three scenarios (Bear, Base, Bull) as you adjust your metrics—no spreadsheets required.
+
+### Key Features
 
 | Feature | Description |
 |---------|-------------|
@@ -24,103 +31,136 @@
 | 📈 **Three Scenarios** | Bear, Base, and Bull case modeling |
 | 🤖 **AI Insights** | Contextual analysis and recommendations |
 | 🔐 **User Accounts** | Save, edit, and manage your valuations |
-| 📱 **Responsive** | Works on desktop, tablet, and mobile |
+| 📱 **Fully Responsive** | Works on desktop, tablet, and mobile |
 
-## 🎬 Preview
+---
 
-<div align="center">
+## 🚀 Getting Started
 
-### Valuation Dashboard
-*Real-time startup valuation with three-scenario modeling*
+### Use the Live App (Recommended)
 
-### Key Metrics
-| Metric | Range | Benchmark |
-|--------|-------|-----------|
-| ARR | $0 - $200M | Pre-revenue to growth |
-| Monthly Growth | 0% - 50% | 15% = T2D3 pace |
-| TAM | $100M - $500B | $1B+ for venture scale |
-| Gross Margin | 20% - 95% | 70%+ for SaaS |
-| Net Retention | 50% - 180% | 110%+ excellent |
-| Burn Multiple | 0x - 5x | 0 = Profitable |
+**No installation required!** Simply visit:
 
-</div>
+👉 **[abdash1994.github.io/startup-valuation](https://abdash1994.github.io/startup-valuation/)**
+
+1. Click **"Try Valuator"** to start immediately (no account needed)
+2. Or **Sign Up** to save your valuations to your personal dashboard
+
+---
 
 ## 📐 Valuation Methodology
 
 We use **industry-standard methodologies** validated against real VC deals:
 
-| Stage | Method | Typical Range |
-|-------|--------|---------------|
-| **Pre-seed/Concept** | Berkus Method | $250K - $2M |
-| **Seed** | Scorecard Method | $2M - $10M |
-| **Series A** | Revenue Multiple (10-25x) | $15M - $60M |
-| **Series B** | Revenue Multiple (8-18x) | $50M - $200M |
-| **Series C+** | Revenue Multiple (6-15x) | $150M+ |
+| Stage | Method | Typical Valuation Range |
+|-------|--------|-------------------------|
+| **Pre-seed / Concept** | Berkus Method | $250K – $2M |
+| **Seed** | Scorecard Method | $2M – $10M |
+| **Series A** | Revenue Multiple (10-25x ARR) | $15M – $60M |
+| **Series B** | Revenue Multiple (8-18x ARR) | $50M – $200M |
+| **Series C+** | Revenue Multiple (6-15x ARR) | $150M+ |
 
-> 📚 See [VALUATION_METHODOLOGY.md](./docs/VALUATION_METHODOLOGY.md) for detailed research and citations.
+> 📚 For detailed research, citations, and validation, see [VALUATION_METHODOLOGY.md](./docs/VALUATION_METHODOLOGY.md)
+
+---
+
+## 📊 Input Metrics
+
+| Metric | Range | What It Measures |
+|--------|-------|------------------|
+| **ARR** | $0 – $200M | Annual Recurring Revenue |
+| **Monthly Growth** | 0% – 50% | Month-over-month revenue growth |
+| **TAM** | $100M – $500B | Total Addressable Market |
+| **Gross Margin** | 20% – 95% | Revenue minus COGS |
+| **Net Retention** | 50% – 180% | Revenue from existing customers |
+| **Burn Multiple** | 0x – 5x | Net burn ÷ Net new ARR |
+| **Team Strength** | 1 – 5 | Leadership quality & execution |
+| **Product Moat** | 1 – 5 | Defensibility & IP |
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React 18, TypeScript, Vite 7
-- **Backend:** Supabase (Auth + PostgreSQL)
-- **Styling:** Custom CSS with CSS Variables
-- **Routing:** React Router DOM v7
-- **Deployment:** Vercel / GitHub Pages
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | React 18, TypeScript, Vite |
+| **Backend** | Supabase (Auth + PostgreSQL) |
+| **Styling** | Custom CSS with CSS Variables |
+| **Routing** | React Router DOM v7 |
+| **Hosting** | GitHub Pages |
 
-## 🚀 Quick Start
+---
 
-### Option 1: Use the Live App
-Visit **[Live Demo](https://your-app-url.vercel.app)** - no installation required!
+## 💻 Self-Hosting (For Developers)
 
-### Option 2: Self-Host (Requires License)
+If you want to run your own instance:
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+- Supabase account (free tier works)
+
+### Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/startup-valuation.git
+git clone https://github.com/abdash1994/startup-valuation.git
 cd startup-valuation
 
 # Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env
-# Add your Supabase credentials to .env
+# Create environment file
+cp env.example .env
 
-# Run development server
+# Add your Supabase credentials to .env:
+# VITE_SUPABASE_URL=https://your-project.supabase.co
+# VITE_SUPABASE_ANON_KEY=your-anon-key
+
+# Start development server
 npm run dev
 ```
 
-## 📋 Environment Setup
+### Database Setup
 
-Create a `.env` file with:
+Run the SQL schema in your Supabase SQL Editor:
+- File: `supabase/schema.sql`
 
-```env
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
+See [SETUP.md](./SETUP.md) for detailed instructions.
+
+---
 
 ## 📄 License
 
 This project is licensed under the **Business Source License 1.1 (BSL)**.
 
-- ✅ **View** the source code
-- ✅ **Use** for personal, non-commercial purposes
-- ✅ **Learn** from the implementation
-- ❌ **Cannot** use commercially without a license
-- ❌ **Cannot** redistribute or resell
-- ❌ **Cannot** remove attribution
+| Permission | Status |
+|------------|--------|
+| View source code | ✅ Allowed |
+| Personal/educational use | ✅ Allowed |
+| Learn from implementation | ✅ Allowed |
+| Commercial use | ❌ Requires license |
+| Redistribute/resell | ❌ Not allowed |
 
 See [LICENSE](./LICENSE) for full terms.
 
+---
+
 ## 🤝 Contributing
 
-Contributions are welcome for bug fixes and documentation improvements. For feature additions, please open an issue first to discuss.
+Contributions are welcome for:
+- Bug fixes
+- Documentation improvements
+- Accessibility enhancements
+
+For feature additions, please [open an issue](https://github.com/abdash1994/startup-valuation/issues) first to discuss.
+
+---
 
 ## 📬 Contact
 
 **Aditya Dash**  
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- GitHub: [@abdash1994](https://github.com/abdash1994)
 
 ---
 
@@ -128,6 +168,8 @@ Contributions are welcome for bug fixes and documentation improvements. For feat
 
 **Built with ❤️ for founders and investors**
 
-⭐ Star this repo if you find it useful!
+⭐ **Star this repo** if you find it useful!
+
+[Try the App →](https://abdash1994.github.io/startup-valuation/)
 
 </div>
