@@ -32,6 +32,9 @@ export default function Navbar() {
   const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User'
   const userEmail = user?.email || ''
 
+  // Get base URL for walkthrough link
+  const baseUrl = import.meta.env.BASE_URL || '/'
+
   return (
     <nav className="navbar">
       <div className="navbar__content">
@@ -47,6 +50,22 @@ export default function Navbar() {
           >
             Valuator
           </Link>
+
+          {/* User Guide Link */}
+          <a
+            href={`${baseUrl}walkthrough-full.html`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar__link navbar__link--guide"
+            title="User Guide"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span className="navbar__link-text">Guide</span>
+          </a>
 
           {user ? (
             <>
@@ -94,6 +113,15 @@ export default function Navbar() {
                     >
                       <span>➕</span> New Valuation
                     </Link>
+                    <a 
+                      href={`${baseUrl}walkthrough-full.html`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="navbar__dropdown-item"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <span>📖</span> User Guide
+                    </a>
                     <div className="navbar__dropdown-divider" />
                     <button 
                       className="navbar__dropdown-item navbar__dropdown-item--danger"
@@ -123,4 +151,3 @@ export default function Navbar() {
     </nav>
   )
 }
-
