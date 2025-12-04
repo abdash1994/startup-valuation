@@ -1,20 +1,16 @@
 # GitHub Actions Workflow for Deploying to GitHub Pages
-# This workflow builds and deploys the app when you push to main
-
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: ['main']
-  workflow_dispatch:  # Allows manual trigger from Actions tab
+  workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: 'pages'
   cancel-in-progress: true
@@ -30,14 +26,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --registry=https://registry.npmjs.org/
+        env:
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
 
       - name: Build
         run: npm run build
         env:
+          GITHUB_PAGES: true
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
@@ -59,4 +58,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
