@@ -119,8 +119,8 @@ Contributions are welcome for bug fixes and documentation improvements. For feat
 ## 📬 Contact
 
 **Aditya Dash**  
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- GitHub: [@yourusername](https://github.com/abdash1994)
+- LinkedIn: [Your LinkedIn](https://linkedin.com/in/adityabikramdash)
 
 ---
 
