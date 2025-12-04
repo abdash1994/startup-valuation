@@ -1,0 +1,23 @@
+# Development files
+.vscode/
+.idea/
+*.log
+*.local
+
+# Build outputs (keep source for scanning)
+dist/
+dist-ssr/
+
+# Test files
+testsprite_tests/
+*.test.*
+*.spec.*
+
+# Documentation (optional - you may want to include this)
+docs/
+
+# Git
+.git/
+.gitignore
+
+
