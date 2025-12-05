@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
+![Version](https://img.shields.io/badge/Version-3.0-blue?style=for-the-badge)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase)
 ![License](https://img.shields.io/badge/License-BSL_1.1-orange?style=for-the-badge)
@@ -32,6 +32,19 @@ Startup Value Navigator is a **free, browser-based valuation tool** that helps f
 | 🤖 **AI Insights** | Contextual analysis and recommendations |
 | 🔐 **User Accounts** | Save, edit, and manage your valuations |
 | 📱 **Fully Responsive** | Works on desktop, tablet, and mobile |
+
+### New in v3.0
+
+| Feature | Description |
+|---------|-------------|
+| 📐 **Methodology Panel** | View calculation details, formulas, and assumptions |
+| 📏 **Metric Benchmarks** | Stage-specific hints under each input slider |
+| 📚 **Valuation Library** | Save unlimited scenarios to local storage |
+| 🔗 **Shareable Links** | Read-only URLs for investors and advisors |
+| 📊 **Portfolio View** | Compare multiple valuations with aggregates |
+| 📄 **PDF Reports** | Download professional investor-ready summaries |
+| 🎓 **Onboarding Tour** | 3-step interactive introduction for new users |
+| 🔄 **Password Reset** | Secure email-based password recovery |
 
 ---
 
@@ -83,10 +96,12 @@ We use **industry-standard methodologies** validated against real VC deals:
 
 | Layer | Technology |
 |-------|------------|
-| **Frontend** | React 18, TypeScript, Vite |
+| **Frontend** | React 19, TypeScript, Vite 7 |
 | **Backend** | Supabase (Auth + PostgreSQL) |
+| **PDF Generation** | jsPDF |
 | **Styling** | Custom CSS with CSS Variables |
 | **Routing** | React Router DOM v7 |
+| **Storage** | localStorage for Library/Portfolio |
 | **Hosting** | GitHub Pages |
 
 ---

@@ -704,9 +704,9 @@
       <h1>Startup Value Navigator</h1>
       <p class="tagline">The definitive guide to understanding, using, and maximizing value from your intelligent startup valuation platform.</p>
       <div class="badges">
-        <span class="badge badge--primary">Version 2.0</span>
+        <span class="badge badge--primary">Version 3.0</span>
         <span class="badge badge--outline">December 2025</span>
-        <span class="badge badge--outline">MVP Ready</span>
+        <span class="badge badge--outline">Production Ready</span>
       </div>
     </header>
 
@@ -719,6 +719,12 @@
         <li><a href="#auth">User Authentication</a></li>
         <li><a href="#valuator">Using the Valuator</a></li>
         <li><a href="#methodology">Valuation Methodology</a></li>
+        <li><a href="#benchmarks">Metric Benchmarks</a></li>
+        <li><a href="#library">Valuation Library</a></li>
+        <li><a href="#sharing">Sharing & Collaboration</a></li>
+        <li><a href="#portfolio">Portfolio View</a></li>
+        <li><a href="#onboarding">Onboarding & Tour</a></li>
+        <li><a href="#reports">PDF Reports</a></li>
         <li><a href="#dashboard">Your Dashboard</a></li>
         <li><a href="#features">Feature Summary</a></li>
         <li><a href="#technical">Technical Specifications</a></li>
@@ -810,7 +816,11 @@
         </div>
         <div class="feature-item">
           <div class="feature-check">✓</div>
-          <span><strong>Forgot Password</strong> — Reset your password via email link</span>
+          <span><strong>Forgot Password</strong> — Request a reset link via email</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Password Reset</strong> — Click the email link to set a new password securely</span>
         </div>
         <div class="feature-item">
           <div class="feature-check">✓</div>
@@ -1015,8 +1025,26 @@
       
       <div class="step">
         <div class="step-number">7</div>
+        <h4>View Methodology</h4>
+        <p>Click <span class="highlight">📐 Methodology & Assumptions</span> to see exactly how your valuation was calculated—including the formula, metric influences, and disclaimers.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">8</div>
         <h4>Save Your Valuation</h4>
-        <p>Click <span class="highlight">💾 Save Valuation</span> to store your analysis. If logged in, it saves to your dashboard. You can save multiple valuations and compare them later.</p>
+        <p>Click <span class="highlight">💾 Save to Library</span> to store locally, or <span class="highlight">💾 Save Valuation</span> (when logged in) to save to your cloud dashboard. Compare multiple scenarios over time.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">9</div>
+        <h4>Download PDF Report</h4>
+        <p>Click <span class="highlight">📄 Download PDF</span> to generate a professional valuation report for investors, board meetings, or offline reference.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">10</div>
+        <h4>Share with Others</h4>
+        <p>Click <span class="highlight">🔗 Copy Share Link</span> to get a shareable URL. Send it to investors, co-founders, or advisors—they'll see a read-only view of your valuation.</p>
       </div>
     </section>
 
@@ -1056,9 +1084,372 @@
         <h4>📚 Research-Backed</h4>
         <p>All methodologies are sourced from academic literature and VC industry practices. See our detailed <strong>VALUATION_METHODOLOGY.md</strong> document for full citations and validation against market data.</p>
       </div>
+      
+      <div class="info-box">
+        <h4>🔍 View Methodology in App</h4>
+        <p>Click the <span class="highlight">📐 Methodology & Assumptions</span> button in the Valuator to see a detailed breakdown of the current method, the pseudo-math formula, and how each metric influences your valuation—all in a beautiful modal panel.</p>
+      </div>
     </section>
 
-    <!-- Section 6: Dashboard -->
+    <!-- Section 6: Metric Benchmarks -->
+    <section class="section" id="benchmarks">
+      <div class="section-header">
+        <div class="section-icon">📊</div>
+        <h2>Metric Benchmarks</h2>
+      </div>
+      
+      <p>Every input slider now shows <strong>contextual benchmark hints</strong> to help you understand where your metrics stand relative to typical SaaS/tech startups at your stage.</p>
+      
+      <h3>How Benchmarks Work</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Stage-Specific</strong> — Benchmarks automatically adapt when you change funding stage</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Real-Time Feedback</strong> — See how your inputs compare as you adjust sliders</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Color-Coded Hints</strong> — Subtle colors indicate positive, neutral, or cautionary ranges</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Market-Backed Data</strong> — Based on industry reports and VC portfolio data</span>
+        </div>
+      </div>
+      
+      <h3>Example Benchmark Hints</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Stage</th>
+              <th>Typical Range</th>
+              <th>Excellent Threshold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Monthly Growth</strong></td>
+              <td>Seed</td>
+              <td>10-20% MoM</td>
+              <td>25%+ MoM</td>
+            </tr>
+            <tr>
+              <td><strong>Gross Margin</strong></td>
+              <td>Series A</td>
+              <td>65-80%</td>
+              <td>80%+</td>
+            </tr>
+            <tr>
+              <td><strong>Net Retention</strong></td>
+              <td>Series B</td>
+              <td>105-120%</td>
+              <td>130%+</td>
+            </tr>
+            <tr>
+              <td><strong>Burn Multiple</strong></td>
+              <td>All Stages</td>
+              <td>1-2x</td>
+              <td>&lt;1x (Efficient)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="info-box">
+        <h4>💡 Pro Tip</h4>
+        <p>Use benchmark hints to calibrate your inputs. If your growth is "Below typical," consider whether your current strategy will achieve venture-scale returns—or adjust your fundraising approach accordingly.</p>
+      </div>
+    </section>
+
+    <!-- Section 7: Valuation Library -->
+    <section class="section" id="library">
+      <div class="section-header">
+        <div class="section-icon">📚</div>
+        <h2>Valuation Library</h2>
+      </div>
+      
+      <p>Save unlimited valuation scenarios to your <strong>local browser storage</strong> and revisit them anytime—perfect for comparing different assumptions, preparing for multiple investor meetings, or tracking company progress over time.</p>
+      
+      <h3>Saving Scenarios</h3>
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Run Your Valuation</h4>
+        <p>Enter your company details and financial metrics in the Valuator. Watch the Bear/Base/Bull scenarios update in real-time.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Click "Save to Library"</h4>
+        <p>When you're satisfied with your inputs, click the <span class="highlight">💾 Save to Library</span> button. A snapshot of your entire valuation—including all metrics, scenarios, and insights—is stored locally.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Access Your Library</h4>
+        <p>Navigate to <span class="highlight">📚 Valuation Library</span> from the user dropdown menu in the navbar. View all your saved valuations in a clean card layout.</p>
+      </div>
+      
+      <h3>Library Features</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Load Scenario</strong> — Click any saved valuation to load it back into the Valuator</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Share Scenario</strong> — Generate a shareable link for investors or advisors</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Delete Scenario</strong> — Remove outdated or test valuations</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Persistent Storage</strong> — Valuations persist across browser sessions</span>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <h4>📍 Local Storage Note</h4>
+        <p>Locally saved valuations are stored in your browser's localStorage. They're separate from your cloud-based dashboard valuations and won't sync across devices. For cross-device access, use the "Save Valuation" feature while logged in.</p>
+      </div>
+    </section>
+
+    <!-- Section 8: Sharing & Collaboration -->
+    <section class="section" id="sharing">
+      <div class="section-header">
+        <div class="section-icon">🔗</div>
+        <h2>Sharing & Collaboration</h2>
+      </div>
+      
+      <p>Share your valuation scenarios with investors, co-founders, or advisors via <strong>read-only shareable links</strong>. Recipients can view your valuation without editing, ensuring data integrity.</p>
+      
+      <h3>How to Share</h3>
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Save Your Valuation</h4>
+        <p>First, save your valuation to the Library using the <span class="highlight">💾 Save to Library</span> button in the Valuator.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Copy Share Link</h4>
+        <p>Click the <span class="highlight">🔗 Copy Share Link</span> button. A unique URL is copied to your clipboard, ready to share via email, Slack, or any messaging platform.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Recipient View</h4>
+        <p>When someone opens your shared link, they see a clean, read-only view of your valuation scenarios—complete with Bear/Base/Bull cards, key metrics, and the methodology panel.</p>
+      </div>
+      
+      <h3>Shared View Features</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Read-Only</strong> — Recipients cannot modify your inputs or scenarios</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Full Context</strong> — All metrics, scenarios, and insights are visible</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Methodology Access</strong> — Viewers can see how the valuation was calculated</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Professional Presentation</strong> — Clean, investor-ready format</span>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <h4>🔒 Privacy</h4>
+        <p>Shared links are only accessible if someone has the exact URL. Links are based on unique valuation IDs stored locally—they're not indexed by search engines or publicly discoverable.</p>
+      </div>
+    </section>
+
+    <!-- Section 9: Portfolio View -->
+    <section class="section" id="portfolio">
+      <div class="section-header">
+        <div class="section-icon">📈</div>
+        <h2>Portfolio View</h2>
+      </div>
+      
+      <p>The <strong>Portfolio View</strong> is designed for investors, accelerator managers, or anyone tracking multiple startups. See all your saved valuations in a sortable table with high-level aggregates.</p>
+      
+      <h3>Accessing Portfolio View</h3>
+      <p>Navigate to <span class="highlight">📈 Portfolio View</span> from the user dropdown menu in the navbar.</p>
+      
+      <h3>Portfolio Features</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Sortable Table</strong> — Sort by company name, ARR, Base valuation, and more</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Key Metrics</strong> — View ARR, MoM growth, and Burn multiple at a glance</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>All Scenarios</strong> — See Bear/Base/Bull valuations in columns</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Quick Actions</strong> — Click to view full valuation details</span>
+        </div>
+      </div>
+      
+      <h3>Portfolio Aggregates</h3>
+      <p>At the top of the Portfolio View, see summary statistics:</p>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="label">Total Companies</div>
+          <div class="value">Count</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Sum of Base Valuations</div>
+          <div class="value">$XXM</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Total ARR</div>
+          <div class="value">$XXM</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Avg Growth Rate</div>
+          <div class="value">XX%</div>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <h4>🎯 Investor Use Case</h4>
+        <p>Use the Portfolio View to compare deal flow, track portfolio company performance, or prepare for LP reporting. Sort by valuation to identify your top performers at a glance.</p>
+      </div>
+    </section>
+
+    <!-- Section 10: Onboarding & Tour -->
+    <section class="section" id="onboarding">
+      <div class="section-header">
+        <div class="section-icon">🎓</div>
+        <h2>Onboarding & Tour</h2>
+      </div>
+      
+      <p>First-time users are greeted with a <strong>3-step interactive tour</strong> that highlights the key features of the Valuator. This ensures you get started quickly without missing any important functionality.</p>
+      
+      <h3>Tour Steps</h3>
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Company & Metrics Section</h4>
+        <p>The tour highlights where to enter your company name, select funding stage, and adjust financial metrics.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Scenario Cards</h4>
+        <p>Learn how the Bear/Base/Bull cards work and how they update in real-time as you adjust inputs.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Actions Area</h4>
+        <p>Discover how to save scenarios, download PDF reports, and share valuation links with others.</p>
+      </div>
+      
+      <h3>Tour Controls</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Next / Back</strong> — Navigate through tour steps at your own pace</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Skip Tour</strong> — Skip the tour if you're already familiar</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Replay Tour</strong> — Access from the navbar dropdown anytime</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>One-Time</strong> — Tour only shows on first visit (stored in localStorage)</span>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <h4>🔄 Replay the Tour</h4>
+        <p>To replay the onboarding tour, click your user avatar in the navbar, then select <span class="highlight">🔄 Replay Onboarding Tour</span> from the dropdown menu.</p>
+      </div>
+    </section>
+
+    <!-- Section 11: PDF Reports -->
+    <section class="section" id="reports">
+      <div class="section-header">
+        <div class="section-icon">📄</div>
+        <h2>PDF Reports</h2>
+      </div>
+      
+      <p>Generate <strong>investor-ready PDF reports</strong> with a single click. Perfect for pitch deck appendices, board meetings, or sharing with advisors who prefer offline documents.</p>
+      
+      <h3>Generating a Report</h3>
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Complete Your Valuation</h4>
+        <p>Enter all company details and financial metrics in the Valuator. Review the Bear/Base/Bull scenarios and insights.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Click "Download PDF"</h4>
+        <p>Click the <span class="highlight">📄 Download PDF</span> button in the Valuator. A professionally formatted PDF is generated instantly.</p>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Save or Share</h4>
+        <p>The PDF downloads automatically. Share it via email, attach to pitch decks, or print for in-person meetings.</p>
+      </div>
+      
+      <h3>PDF Contents</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Company Header</strong> — Company name, stage, and date</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Valuation Scenarios</strong> — Bear, Base, and Bull case valuations</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Key Metrics</strong> — ARR, Growth, TAM, Margins, and more</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Methodology Note</strong> — Which method was used and why</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Key Insights</strong> — AI-generated analysis and recommendations</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Disclaimer</strong> — Professional disclaimer for legal clarity</span>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <h4>⚠️ Report Disclaimer</h4>
+        <p>All PDF reports include a footer disclaimer clarifying that the valuation is for informational purposes only and does not constitute financial, legal, or tax advice.</p>
+      </div>
+    </section>
+
+    <!-- Section 12: Dashboard -->
     <section class="section" id="dashboard">
       <div class="section-header">
         <div class="section-icon">📋</div>
@@ -1113,7 +1504,7 @@
         <h2>Complete Feature Summary</h2>
       </div>
       
-      <h3>Core Features</h3>
+      <h3>Core Valuation Features</h3>
       <div class="feature-grid">
         <div class="feature-item">
           <div class="feature-check">✓</div>
@@ -1146,6 +1537,42 @@
         <div class="feature-item">
           <div class="feature-check">✓</div>
           <span>Professional dark theme UI</span>
+        </div>
+      </div>
+      
+      <h3>New in Version 3.0</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Methodology Panel</strong> — View calculation details and formulas</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Metric Benchmarks</strong> — Stage-specific hints under each input</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Valuation Library</strong> — Save and manage scenarios locally</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Shareable Links</strong> — Read-only URLs for investors</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Portfolio View</strong> — Compare multiple valuations at once</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>PDF Reports</strong> — Professional downloadable summaries</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Onboarding Tour</strong> — 3-step interactive introduction</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-check">✓</div>
+          <span><strong>Enhanced Disclaimers</strong> — Clear "what this is/isn't" section</span>
         </div>
       </div>
       
@@ -1218,7 +1645,7 @@
           <tbody>
             <tr>
               <td><strong>Frontend</strong></td>
-              <td>React 18 + TypeScript</td>
+              <td>React 19 + TypeScript</td>
               <td>UI components and type safety</td>
             </tr>
             <tr>
@@ -1229,7 +1656,7 @@
             <tr>
               <td><strong>Routing</strong></td>
               <td>React Router DOM v7</td>
-              <td>Client-side navigation</td>
+              <td>Client-side SPA navigation</td>
             </tr>
             <tr>
               <td><strong>Backend</strong></td>
@@ -1240,6 +1667,16 @@
               <td><strong>Database</strong></td>
               <td>PostgreSQL</td>
               <td>Valuation data storage</td>
+            </tr>
+            <tr>
+              <td><strong>PDF Generation</strong></td>
+              <td>jsPDF</td>
+              <td>Client-side PDF reports</td>
+            </tr>
+            <tr>
+              <td><strong>Local Storage</strong></td>
+              <td>Browser localStorage</td>
+              <td>Valuation library persistence</td>
             </tr>
             <tr>
               <td><strong>Security</strong></td>
@@ -1316,7 +1753,8 @@
     <footer class="footer">
       <p><strong>Startup Value Navigator</strong></p>
       <p>Complete Product Walkthrough Guide</p>
-      <p>Version 2.0 | December 2025</p>
+      <p>Version 3.0 | December 2025</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">Includes: Methodology Panel, Benchmarks, Library, Sharing, Portfolio, Onboarding, PDF Reports</p>
       <button class="print-btn" onclick="window.print()">
         📥 Download as PDF
       </button>
