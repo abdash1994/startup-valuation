@@ -24,6 +24,10 @@ export default function Login() {
         // Check if it's a connection error (Supabase not configured)
         if (error.message.includes('fetch') || error.message.includes('Failed') || error.message.includes('NetworkError')) {
           setError('Backend not configured. Please set up Supabase (see SETUP.md) or use the Valuator tool without an account.')
+        } else if (error.message.includes('Invalid login credentials')) {
+          setError('Invalid email or password. If you just signed up, please check your email to verify your account first.')
+        } else if (error.message.includes('Email not confirmed')) {
+          setError('Please verify your email before signing in. Check your inbox for a verification link.')
         } else {
           setError(error.message)
         }
@@ -62,6 +66,7 @@ export default function Login() {
               placeholder="you@company.com"
               required
               autoComplete="email"
+              data-testid="email-input"
             />
           </div>
 
@@ -75,6 +80,7 @@ export default function Login() {
               placeholder="••••••••"
               required
               autoComplete="current-password"
+              data-testid="password-input"
             />
           </div>
 
@@ -83,7 +89,7 @@ export default function Login() {
             <Link to="/forgot-password" className="auth-link">Forgot password?</Link>
           </div>
 
-          <button type="submit" className="auth-button" disabled={loading}>
+          <button type="submit" className="auth-button" disabled={loading} data-testid="login-button">
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
@@ -96,7 +102,7 @@ export default function Login() {
         </div>
 
         <div className="auth-demo-notice">
-          <p>🎯 <strong>Demo Mode:</strong> You can also <Link to="/valuator">try the tool</Link> without signing in</p>
+          <p>🎯 <strong>Demo Mode:</strong> You can also <Link to="/valuator" data-testid="try-valuator-link">try the tool</Link> without signing in</p>
         </div>
       </div>
     </div>

@@ -169,6 +169,32 @@
   color: var(--text-muted);
 }
 
+/* Methodology Trigger Button */
+.methodology-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.1);
+  color: #a5b4fc;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.methodology-trigger:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.5);
+  color: #c7d2fe;
+}
+
+.methodology-trigger svg {
+  flex-shrink: 0;
+}
+
 .stage-badge {
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
@@ -288,6 +314,42 @@
   margin: 0;
   color: var(--text-muted);
   font-size: 0.75rem;
+}
+
+/* Benchmark Hints */
+.field__benchmark {
+  margin: 0.35rem 0 0;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.field__benchmark--good {
+  background: rgba(52, 211, 153, 0.1);
+  border-color: rgba(52, 211, 153, 0.25);
+  color: #34d399;
+}
+
+.field__benchmark--warning {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.25);
+  color: #fbbf24;
+}
+
+.field__benchmark--typical {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+.field__benchmark--neutral {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .scenario-grid {
@@ -515,8 +577,14 @@
   gap: 0.75rem;
 }
 
-.save-button {
+.save-buttons {
+  display: flex;
+  gap: 0.75rem;
   width: 100%;
+}
+
+.save-button {
+  flex: 1;
   padding: 1rem 2rem;
   border: none;
   border-radius: 14px;
@@ -526,6 +594,47 @@
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.share-button {
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  border-radius: 14px;
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.share-button:hover {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: rgba(52, 211, 153, 0.6);
+}
+
+.download-button {
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 14px;
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.download-button:hover:not(:disabled) {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: rgba(251, 191, 36, 0.6);
+}
+
+.download-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .save-button:hover:not(:disabled) {
@@ -553,6 +662,15 @@
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
   text-align: center;
+}
+
+.save-hint__link {
+  color: #818cf8;
+  text-decoration: underline;
+}
+
+.save-hint__link:hover {
+  color: #a5b4fc;
 }
 
 .save-warning {

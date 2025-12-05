@@ -6,8 +6,12 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import Dashboard from './pages/Dashboard'
 import ValuationTool from './pages/ValuationTool'
+import Library from './pages/Library'
+import SharedValuation from './pages/SharedValuation'
+import Portfolio from './pages/Portfolio'
 import NotFound from './pages/NotFound'
 import './App.css'
 
@@ -21,7 +25,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/valuator" element={<ValuationTool />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/share/:id" element={<SharedValuation />} />
+          <Route path="/portfolio" element={<Portfolio />} />
           <Route
             path="/dashboard"
             element={

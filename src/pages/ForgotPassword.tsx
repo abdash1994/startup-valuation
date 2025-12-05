@@ -10,6 +10,10 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
+  // Get the base URL for the redirect (handles GitHub Pages deployment)
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  const redirectUrl = `${window.location.origin}${baseUrl}reset-password`
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
@@ -17,7 +21,7 @@ export default function ForgotPassword() {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: redirectUrl,
       })
 
       if (error) {

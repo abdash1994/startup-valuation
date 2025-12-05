@@ -6,17 +6,28 @@
     <script>
       // Single Page App redirect for GitHub Pages
       // This script redirects 404s to index.html with the path preserved
-      const path = window.location.pathname;
-      const search = window.location.search;
-      const hash = window.location.hash;
-      
-      // Redirect to index.html with the path encoded in the query string
-      const redirectUrl = '/startup-valuation/?redirect=' + encodeURIComponent(path + search + hash);
-      window.location.replace(redirectUrl);
+      // Handles Supabase auth redirects with tokens in hash
+      (function() {
+        var fullPath = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+        
+        // Store the full intended URL in sessionStorage as backup
+        sessionStorage.redirect = fullPath + search + hash;
+        
+        // Redirect to base with the redirect parameter
+        var redirectUrl = '/startup-valuation/?redirect=' + encodeURIComponent(fullPath + search + hash);
+        window.location.replace(redirectUrl);
+      })();
     </script>
   </head>
   <body>
+    <noscript>
+      <meta http-equiv="refresh" content="0; URL='/startup-valuation/'">
+    </noscript>
     <p>Redirecting...</p>
   </body>
 </html>
+
+
 

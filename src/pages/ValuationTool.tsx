@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useReducer, useState } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
 import type { ValuationRecord } from '../lib/supabase'
@@ -9,6 +9,21 @@ import {
   telemetryReducer,
 } from '../analytics/telemetry'
 import { useBrowserCapabilities } from '../hooks/useBrowserCapabilities'
+import MethodologyModal from '../components/MethodologyModal'
+import OnboardingTour from '../components/OnboardingTour'
+import { 
+  benchmarksByStage, 
+  getBenchmarkStatus, 
+  formatBenchmarkHint,
+  type StageKey as BenchmarkStageKey,
+  type StageBenchmarks 
+} from '../utils/benchmarks'
+import {
+  saveValuation as saveLocalValuation,
+  updateValuation as updateLocalValuation,
+  getValuationById as getLocalValuationById,
+} from '../utils/savedValuations'
+import { generateValuationReport } from '../utils/reportGenerator'
 import './ValuationTool.css'
 
 /**
@@ -528,14 +543,17 @@ const defaultInputs: StartupInputs = {
 
 export default function ValuationTool() {
   const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
   const { user } = useAuth()
   const editId = searchParams.get('id')
+  const localId = searchParams.get('localId')
 
   const [inputs, setInputs] = useState<StartupInputs>(defaultInputs)
   const [saving, setSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState('')
-  const [loadingEdit, setLoadingEdit] = useState(!!editId)
+  const [loadingEdit, setLoadingEdit] = useState(!!editId || !!localId)
+  const [showMethodology, setShowMethodology] = useState(false)
+  const [currentLocalId, setCurrentLocalId] = useState<string | null>(localId)
+  const [linkCopied, setLinkCopied] = useState(false)
 
   const valuation = useMemo(() => buildValuation(inputs), [inputs])
   const insights = useMemo(() => buildInsights(inputs, valuation), [inputs, valuation])
@@ -545,16 +563,44 @@ export default function ValuationTool() {
   const scenarioMax = Math.max(valuation.bull, valuation.base, valuation.bear, 1)
   const confidencePercent = Math.round(valuation.confidence * 100)
   const stageLabel = stageConfig[inputs.stage].label
+  const isPreRevenue = inputs.stage === 'concept' || (inputs.stage === 'seed' && inputs.arr < 0.1)
 
-  // Load existing valuation for editing
+  // Load existing valuation for editing (from Supabase or localStorage)
   useEffect(() => {
     if (editId && user) {
       loadValuation(editId)
+    } else if (localId) {
+      loadLocalValuation(localId)
     } else {
       setLoadingEdit(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editId, user])
+  }, [editId, user, localId])
+
+  const loadLocalValuation = (id: string) => {
+    try {
+      const data = getLocalValuationById(id)
+      if (data) {
+        setInputs({
+          name: data.companyName,
+          stage: data.stage as StageKey,
+          arr: data.arr,
+          monthlyGrowth: data.monthlyGrowth,
+          tam: data.tam,
+          grossMargin: data.grossMargin,
+          netRetention: data.netRetention,
+          burnMultiple: data.burnMultiple,
+          teamStrength: data.teamStrength,
+          differentiation: data.differentiation,
+        })
+        setCurrentLocalId(id)
+      }
+    } catch (error) {
+      console.error('Error loading local valuation:', error)
+    } finally {
+      setLoadingEdit(false)
+    }
+  }
 
   const loadValuation = async (id: string) => {
     try {
@@ -589,11 +635,6 @@ export default function ValuationTool() {
   }
 
   const handleSave = async () => {
-    if (!user) {
-      navigate('/login')
-      return
-    }
-
     // Validate required fields
     if (!inputs.name.trim()) {
       setSaveMessage('⚠️ Please enter a company name before saving')
@@ -603,50 +644,95 @@ export default function ValuationTool() {
     setSaving(true)
     setSaveMessage('')
 
-    const record: Omit<ValuationRecord, 'id' | 'created_at' | 'updated_at'> = {
-      user_id: user.id,
-      startup_name: inputs.name,
-      stage: inputs.stage,
-      arr: inputs.arr,
-      monthly_growth: inputs.monthlyGrowth,
-      tam: inputs.tam,
-      gross_margin: inputs.grossMargin,
-      net_retention: inputs.netRetention,
-      burn_multiple: inputs.burnMultiple,
-      team_strength: inputs.teamStrength,
-      differentiation: inputs.differentiation,
-      bear_valuation: valuation.bear,
-      base_valuation: valuation.base,
-      bull_valuation: valuation.bull,
-      revenue_multiple: valuation.revenueMultiple,
-      confidence: valuation.confidence,
-    }
-
-    try {
-      if (editId) {
-        // Update existing
-        const { error } = await supabase
-          .from('valuations')
-          .update({ ...record, updated_at: new Date().toISOString() })
-          .eq('id', editId)
-          .eq('user_id', user.id)
-
-        if (error) throw error
-        setSaveMessage('✓ Valuation updated!')
-      } else {
-        // Create new
-        const { error } = await supabase.from('valuations').insert(record)
-
-        if (error) throw error
-        setSaveMessage('✓ Valuation saved!')
+    // If user is authenticated, save to Supabase
+    if (user) {
+      const record: Omit<ValuationRecord, 'id' | 'created_at' | 'updated_at'> = {
+        user_id: user.id,
+        startup_name: inputs.name,
+        stage: inputs.stage,
+        arr: inputs.arr,
+        monthly_growth: inputs.monthlyGrowth,
+        tam: inputs.tam,
+        gross_margin: inputs.grossMargin,
+        net_retention: inputs.netRetention,
+        burn_multiple: inputs.burnMultiple,
+        team_strength: inputs.teamStrength,
+        differentiation: inputs.differentiation,
+        bear_valuation: valuation.bear,
+        base_valuation: valuation.base,
+        bull_valuation: valuation.bull,
+        revenue_multiple: valuation.revenueMultiple,
+        confidence: valuation.confidence,
       }
 
-      setTimeout(() => setSaveMessage(''), 3000)
-    } catch (error) {
-      console.error('Error saving valuation:', error)
-      setSaveMessage('Failed to save. Please try again.')
-    } finally {
-      setSaving(false)
+      try {
+        if (editId) {
+          // Update existing in Supabase
+          const { error } = await supabase
+            .from('valuations')
+            .update({ ...record, updated_at: new Date().toISOString() })
+            .eq('id', editId)
+            .eq('user_id', user.id)
+
+          if (error) throw error
+          setSaveMessage('✓ Valuation updated!')
+        } else {
+          // Create new in Supabase
+          const { error } = await supabase.from('valuations').insert(record)
+
+          if (error) throw error
+          setSaveMessage('✓ Valuation saved to cloud!')
+        }
+
+        telemetry.track('scenario_saved', { storage: 'cloud', isUpdate: !!editId })
+        setTimeout(() => setSaveMessage(''), 3000)
+      } catch (error) {
+        console.error('Error saving valuation:', error)
+        setSaveMessage('Failed to save. Please try again.')
+      } finally {
+        setSaving(false)
+      }
+    } else {
+      // Save to localStorage for non-authenticated users
+      try {
+        const localData = {
+          companyName: inputs.name,
+          stage: inputs.stage,
+          arr: inputs.arr,
+          monthlyGrowth: inputs.monthlyGrowth,
+          tam: inputs.tam,
+          grossMargin: inputs.grossMargin,
+          netRetention: inputs.netRetention,
+          burnMultiple: inputs.burnMultiple,
+          teamStrength: inputs.teamStrength,
+          differentiation: inputs.differentiation,
+          bear: valuation.bear,
+          base: valuation.base,
+          bull: valuation.bull,
+          revenueMultiple: valuation.revenueMultiple,
+          confidence: valuation.confidence,
+          insights: insights,
+        }
+
+        if (currentLocalId) {
+          // Update existing in localStorage
+          updateLocalValuation(currentLocalId, localData)
+          setSaveMessage('✓ Valuation updated locally!')
+        } else {
+          // Create new in localStorage
+          const saved = saveLocalValuation(localData)
+          setCurrentLocalId(saved.id)
+          setSaveMessage('✓ Saved to library!')
+        }
+
+        telemetry.track('scenario_saved', { storage: 'local', isUpdate: !!currentLocalId })
+        setTimeout(() => setSaveMessage(''), 3000)
+      } catch (error) {
+        console.error('Error saving to localStorage:', error)
+        setSaveMessage('Failed to save locally. Storage may be full.')
+      } finally {
+        setSaving(false)
+      }
     }
   }
 
@@ -672,6 +758,53 @@ export default function ValuationTool() {
     dispatchTelemetry({ type: 'input' })
     telemetry.track('stage_changed', { from: inputs.stage, to: value })
     setInputs((prev) => ({ ...prev, stage: value }))
+  }
+
+  const handleCopyShareLink = async () => {
+    if (!currentLocalId) return
+    
+    const baseUrl = window.location.origin + (import.meta.env.BASE_URL || '/')
+    const shareUrl = `${baseUrl}share/${currentLocalId}`
+    
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setLinkCopied(true)
+      telemetry.track('share_link_copied', {})
+      setTimeout(() => setLinkCopied(false), 2000)
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = shareUrl
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      setLinkCopied(true)
+      setTimeout(() => setLinkCopied(false), 2000)
+    }
+  }
+
+  const handleDownloadReport = () => {
+    generateValuationReport({
+      companyName: inputs.name,
+      stage: inputs.stage,
+      stageLabel: stageConfig[inputs.stage].label,
+      createdAt: new Date(),
+      arr: inputs.arr,
+      monthlyGrowth: inputs.monthlyGrowth,
+      tam: inputs.tam,
+      grossMargin: inputs.grossMargin,
+      netRetention: inputs.netRetention,
+      burnMultiple: inputs.burnMultiple,
+      teamStrength: inputs.teamStrength,
+      differentiation: inputs.differentiation,
+      bear: valuation.bear,
+      base: valuation.base,
+      bull: valuation.bull,
+      revenueMultiple: valuation.revenueMultiple,
+      confidence: valuation.confidence,
+      insights: insights,
+    })
   }
 
   useEffect(() => {
@@ -783,34 +916,51 @@ export default function ValuationTool() {
             </div>
 
             <div className="input-grid">
-              {sliderFields.map((field) => (
-                <div className="field" key={field.key}>
-                  <div className="field__labels">
-                    <label htmlFor={`field-${field.key}`}>{field.label}</label>
-                    <span className="field__value">{field.format(inputs[field.key])}</span>
+              {sliderFields.map((field) => {
+                // Check if this field has a benchmark
+                const benchmarkKey = field.key as keyof StageBenchmarks
+                const hasBenchmark = benchmarkKey in (benchmarksByStage[inputs.stage as BenchmarkStageKey] || {})
+                const benchmarkStatus = hasBenchmark 
+                  ? getBenchmarkStatus(inputs.stage as BenchmarkStageKey, benchmarkKey, inputs[field.key])
+                  : 'neutral'
+                const benchmarkHint = hasBenchmark 
+                  ? formatBenchmarkHint(inputs.stage as BenchmarkStageKey, benchmarkKey)
+                  : null
+
+                return (
+                  <div className="field" key={field.key}>
+                    <div className="field__labels">
+                      <label htmlFor={`field-${field.key}`}>{field.label}</label>
+                      <span className="field__value">{field.format(inputs[field.key])}</span>
+                    </div>
+                    <div className="field__controls">
+                      <input
+                        id={`field-${field.key}`}
+                        type="range"
+                        min={field.min}
+                        max={field.max}
+                        step={field.step}
+                        value={inputs[field.key]}
+                        onChange={(event) => handleNumberChange(field.key, event.currentTarget.valueAsNumber)}
+                      />
+                      <input
+                        type="number"
+                        min={field.min}
+                        max={field.max}
+                        step={field.step}
+                        value={inputs[field.key]}
+                        onChange={(event) => handleNumberChange(field.key, Number(event.currentTarget.value))}
+                      />
+                    </div>
+                    <p className="field__helper">{field.helper}</p>
+                    {benchmarkHint && (
+                      <p className={`field__benchmark field__benchmark--${benchmarkStatus}`}>
+                        {benchmarkHint}
+                      </p>
+                    )}
                   </div>
-                  <div className="field__controls">
-                    <input
-                      id={`field-${field.key}`}
-                      type="range"
-                      min={field.min}
-                      max={field.max}
-                      step={field.step}
-                      value={inputs[field.key]}
-                      onChange={(event) => handleNumberChange(field.key, event.currentTarget.valueAsNumber)}
-                    />
-                    <input
-                      type="number"
-                      min={field.min}
-                      max={field.max}
-                      step={field.step}
-                      value={inputs[field.key]}
-                      onChange={(event) => handleNumberChange(field.key, Number(event.currentTarget.value))}
-                    />
-                  </div>
-                  <p className="field__helper">{field.helper}</p>
-                </div>
-              ))}
+                )
+              })}
             </div>
 
             {/* Save Button */}
@@ -818,20 +968,49 @@ export default function ValuationTool() {
               {!inputs.name.trim() && (
                 <p className="save-warning">⚠️ Enter a company name to save this valuation</p>
               )}
-              <button
-                onClick={handleSave}
-                disabled={saving || (!inputs.name.trim() && !!user)}
-                className="save-button"
-              >
-                {saving ? 'Saving...' : user ? (editId ? '💾 Update Valuation' : '💾 Save Valuation') : '🔒 Login to Save'}
-              </button>
+              <div className="save-buttons">
+                <button
+                  onClick={handleSave}
+                  disabled={saving || !inputs.name.trim()}
+                  className="save-button"
+                  data-testid="save-button"
+                >
+                  {saving 
+                    ? 'Saving...' 
+                    : user 
+                      ? (editId ? '💾 Update Valuation' : '💾 Save to Cloud') 
+                      : (currentLocalId ? '💾 Update in Library' : '💾 Save to Library')
+                  }
+                </button>
+                {currentLocalId && !user && (
+                  <button
+                    onClick={handleCopyShareLink}
+                    className="share-button"
+                    title="Copy shareable link"
+                    data-testid="share-button"
+                  >
+                    {linkCopied ? '✓ Copied!' : '🔗 Share'}
+                  </button>
+                )}
+                <button
+                  onClick={handleDownloadReport}
+                  className="download-button"
+                  title="Download PDF report"
+                  disabled={!inputs.name.trim()}
+                  data-testid="pdf-download-button"
+                >
+                  📄 PDF
+                </button>
+              </div>
               {saveMessage && (
                 <span className={`save-message ${saveMessage.includes('Failed') || saveMessage.includes('⚠️') ? 'save-message--error' : ''}`}>
                   {saveMessage}
                 </span>
               )}
               {!user && (
-                <p className="save-hint">Create a free account to save and track your valuations</p>
+                <p className="save-hint">
+                  Saves locally in your browser. <Link to="/signup" className="save-hint__link">Create an account</Link> to sync across devices.
+                </p>
               )}
             </div>
           </section>
@@ -842,7 +1021,19 @@ export default function ValuationTool() {
                 <p className="eyebrow">Valuation stack</p>
                 <h2>Scenario Modeling</h2>
               </div>
-              <span className="panel__timestamp">Always-on - auto recalculated</span>
+              <button 
+                className="methodology-trigger"
+                onClick={() => setShowMethodology(true)}
+                title="View methodology and assumptions"
+                data-testid="methodology-button"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                Methodology
+              </button>
             </div>
 
             <div className="scenario-grid">
@@ -958,6 +1149,28 @@ export default function ValuationTool() {
           </div>
         </section>
       </div>
+
+      {/* Methodology Modal */}
+      <MethodologyModal
+        isOpen={showMethodology}
+        onClose={() => setShowMethodology(false)}
+        stage={inputs.stage}
+        isPreRevenue={isPreRevenue}
+        valuation={valuation}
+        inputs={{
+          arr: inputs.arr,
+          monthlyGrowth: inputs.monthlyGrowth,
+          grossMargin: inputs.grossMargin,
+          netRetention: inputs.netRetention,
+          burnMultiple: inputs.burnMultiple,
+          teamStrength: inputs.teamStrength,
+          differentiation: inputs.differentiation,
+          tam: inputs.tam,
+        }}
+      />
+
+      {/* Onboarding Tour for first-time users */}
+      <OnboardingTour />
     </div>
   )
 }

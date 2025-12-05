@@ -50,6 +50,18 @@ export default function Navbar() {
           >
             Valuator
           </Link>
+          <Link
+            to="/library"
+            className={`navbar__link ${isActive('/library') ? 'navbar__link--active' : ''}`}
+          >
+            Library
+          </Link>
+          <Link
+            to="/portfolio"
+            className={`navbar__link ${isActive('/portfolio') ? 'navbar__link--active' : ''}`}
+          >
+            Portfolio
+          </Link>
 
           {/* User Guide Link */}
           <a
@@ -122,6 +134,28 @@ export default function Navbar() {
                     >
                       <span>📖</span> User Guide
                     </a>
+                    <button 
+                      className="navbar__dropdown-item"
+                      data-testid="replay-tour-button"
+                      onClick={() => {
+                        setDropdownOpen(false)
+                        // Trigger onboarding replay if on valuator page
+                        const replay = (window as unknown as { replayOnboarding?: () => void }).replayOnboarding
+                        if (replay) {
+                          replay()
+                        } else {
+                          // Navigate to valuator page first, then clear onboarding flag and reload
+                          localStorage.removeItem('svn-onboarding-completed')
+                          navigate('/valuator')
+                          setTimeout(() => {
+                            const replayFn = (window as unknown as { replayOnboarding?: () => void }).replayOnboarding
+                            if (replayFn) replayFn()
+                          }, 600)
+                        }
+                      }}
+                    >
+                      <span>🎯</span> Replay Tour
+                    </button>
                     <div className="navbar__dropdown-divider" />
                     <button 
                       className="navbar__dropdown-item navbar__dropdown-item--danger"
