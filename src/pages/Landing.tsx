@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
 import './Landing.css'
 
 export default function Landing() {
-  const { user } = useAuth()
   const baseUrl = import.meta.env.BASE_URL || '/'
 
   return (
@@ -21,40 +19,66 @@ export default function Landing() {
             VC-Backed Valuation Methods
           </div>
           
-          <h1>
-            Know Your Startup's
-            <span className="gradient-text"> True Value</span>
-          </h1>
+          <h1>Startup Value Navigator</h1>
           
           <p className="landing__subtitle">
-            Intelligent valuation modeling combining market comparables, forward ARR,
-            and qualitative signals. Get Bear, Base, and Bull case scenarios instantly.
+            Scenario-based valuations for early-stage founders and investors — with methods and assumptions you can actually defend.
           </p>
 
           <div className="landing__ctas">
-            <Link to="/valuator" className="landing__cta landing__cta--primary">
-              <span>Try Valuator Free</span>
+            <Link to="/valuator" className="landing__cta landing__cta--primary" data-testid="valuator-cta">
+              <span>Run a valuation</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"/>
                 <polyline points="12 5 19 12 12 19"/>
               </svg>
             </Link>
-            {!user && (
-              <Link to="/signup" className="landing__cta landing__cta--secondary">
-                Create Account
-              </Link>
-            )}
-            {user && (
-              <Link to="/dashboard" className="landing__cta landing__cta--secondary">
-                View Dashboard
-              </Link>
-            )}
+            <a 
+              href={`${baseUrl}walkthrough-full.html`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="landing__cta landing__cta--secondary"
+            >
+              See how it works
+            </a>
           </div>
 
           <div className="landing__trust">
             <span><span className="trust-icon">✓</span> No credit card required</span>
             <span><span className="trust-icon">✓</span> Save unlimited valuations</span>
             <span><span className="trust-icon">✓</span> Research-backed methods</span>
+          </div>
+        </section>
+
+        {/* Problem / Solution Section */}
+        <section className="landing__problem-solution">
+          <div className="landing__section-header">
+            <span className="landing__section-tag">Why This Exists</span>
+            <h2>The Problem We're Solving</h2>
+          </div>
+          
+          <div className="problem-solution-grid">
+            <div className="problem-solution-card problem-solution-card--problem">
+              <h3>The Problem</h3>
+              <p>
+                Founders often guess at their startup's valuation, using vague comparables or 
+                arbitrary numbers that don't reflect their actual metrics. Investors, meanwhile, 
+                lack a shared language to discuss valuations consistently across different stages 
+                and business models. This leads to misaligned expectations, wasted time in 
+                fundraising conversations, and founders leaving money on the table—or pricing 
+                themselves out of deals.
+              </p>
+            </div>
+            <div className="problem-solution-card problem-solution-card--solution">
+              <h3>The Solution</h3>
+              <p>
+                Startup Value Navigator provides a transparent, method-driven approach to valuation. 
+                We use industry-standard methodologies (Berkus, Scorecard, Revenue Multiple) that 
+                investors recognize, and we show you exactly how your inputs map to Bear, Base, and 
+                Bull scenarios. This gives founders a defensible starting point for investor 
+                conversations, and gives investors a consistent framework for evaluating deals.
+              </p>
+            </div>
           </div>
         </section>
 

@@ -880,6 +880,10 @@ export default function ValuationTool() {
               <span className="stage-badge">{stageLabel}</span>
             </div>
 
+            <p className="input-helper-text">
+              Enter your real numbers. We'll show you Bear / Base / Bull valuations and how they stack against typical early-stage benchmarks.
+            </p>
+
             <div className="field field--text">
               <div className="field__labels">
                 <label htmlFor="startup-name">Company / Startup Name</label>
@@ -1056,9 +1060,9 @@ export default function ValuationTool() {
                     </div>
                     <div className="valuation-card__value">{formatCompactCurrency(value)}</div>
                     <p className="valuation-card__helper">
-                      {key === 'bear' && 'Conservative downside protection'}
-                      {key === 'base' && 'Blends revenue, market, and forward ARR'}
-                      {key === 'bull' && 'Optimistic capture with growth premium'}
+                      {key === 'bear' && 'Slower scenario.'}
+                      {key === 'base' && 'Reasonable investor anchor.'}
+                      {key === 'bull' && 'Upside execution scenario.'}
                     </p>
                   </article>
                 )

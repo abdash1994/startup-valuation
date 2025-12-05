@@ -130,7 +130,30 @@ export default function MethodologyModal({
           {/* Method Description */}
           <section className="methodology-section">
             <h3>How Your Valuation is Calculated</h3>
-            <p>{methodology.description}</p>
+            {isPreRevenue ? (
+              <>
+                <p>
+                  <strong>Berkus Method</strong> — For pre-revenue startups, we assign value to five key risk-reduction factors. 
+                  Each factor can contribute up to $500K, with a maximum total valuation of ~$2.5M for exceptional early-stage companies. 
+                  This method is industry-standard for concept and pre-seed stages where revenue multiples don't apply.
+                </p>
+                <p style={{ marginTop: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                  <strong>Simplified formula:</strong> Valuation = (Idea Value + Prototype Value + Team Value + Strategic Value + Market Timing Value), 
+                  each capped at their maximum contribution.
+                </p>
+              </>
+            ) : (
+              <>
+                <p>
+                  <strong>Revenue Multiple Method</strong> — For revenue-generating startups, your valuation is calculated as ARR multiplied by 
+                  a growth-adjusted multiple. The base multiple comes from your stage (e.g., 10–25x for Series A), then we adjust it based on 
+                  your growth rate, margins, retention, and burn efficiency. This aligns with how VCs actually price deals at revenue stages.
+                </p>
+                <p style={{ marginTop: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                  <strong>Simplified formula:</strong> Base Valuation = ARR × (Base Multiple × Growth Adjustment × Margin Adjustment × Retention Adjustment × Burn Adjustment × Qualitative Adjustment)
+                </p>
+              </>
+            )}
           </section>
 
           {/* Formula */}

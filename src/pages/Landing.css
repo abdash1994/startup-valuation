@@ -240,6 +240,58 @@
   margin: 0 auto;
 }
 
+/* Problem / Solution Section */
+.landing__problem-solution {
+  padding: 5rem 0;
+}
+
+.problem-solution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.problem-solution-card {
+  background: rgba(15, 20, 35, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.problem-solution-card--problem {
+  border-color: rgba(251, 191, 36, 0.25);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.06), rgba(15, 20, 35, 0.6));
+}
+
+.problem-solution-card--solution {
+  border-color: rgba(52, 211, 153, 0.25);
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(15, 20, 35, 0.6));
+}
+
+.problem-solution-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: #f8fafc;
+}
+
+.problem-solution-card--problem h3 {
+  color: #fbbf24;
+}
+
+.problem-solution-card--solution h3 {
+  color: #34d399;
+}
+
+.problem-solution-card p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  margin: 0;
+}
+
 /* Methods Section */
 .landing__methods {
   padding: 5rem 0;
@@ -486,6 +538,10 @@
 /* Responsive */
 @media (max-width: 900px) {
   .methods-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .problem-solution-grid {
     grid-template-columns: 1fr;
   }
 }

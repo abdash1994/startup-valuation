@@ -138,8 +138,11 @@ export default function Portfolio() {
         {/* Header */}
         <header className="portfolio-header">
           <div className="portfolio-header__left">
-            <h1>📊 Portfolio Overview</h1>
-            <p>Aggregate view of your saved valuations</p>
+            <h1>Portfolio Valuation View</h1>
+            <p>Fast, consistent sanity-checks across deals.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.6)' }}>
+              Not a formal appraisal. Use this to compare relative pricing, then go deeper on diligence.
+            </p>
           </div>
           <div className="portfolio-header__right">
             <Link to="/library" className="portfolio-btn portfolio-btn--secondary">

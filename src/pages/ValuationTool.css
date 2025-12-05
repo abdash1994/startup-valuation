@@ -169,6 +169,17 @@
   color: var(--text-muted);
 }
 
+.input-helper-text {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
 /* Methodology Trigger Button */
 .methodology-trigger {
   display: inline-flex;
